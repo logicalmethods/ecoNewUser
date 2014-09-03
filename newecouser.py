@@ -36,10 +36,10 @@ def mkAD(username):
 	#return date
 '''
 
-pwgen():
+def pwgen():
 	return("Password!")
 
-print mkAD()
+print mkAD("aaron test")
 
 #def mkBasecamp()
 
