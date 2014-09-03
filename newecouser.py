@@ -26,12 +26,18 @@ from pyad import *
 #from urllib import urlencode
 
 
-def mkAD():
-	#newuser=pyad.aduser.ADUser('aspeaks')
+def mkAD(username):
+	ou = pyad.adcontainer.ADContainer.from_dn("OU=folder redirection,OU=employees,OU=ecotrust,DC=ecotrust,DC=org")
+	c = pyad.aduser.ADUser.create(name = username, container_object=ou, password=pwgen(), upn_suffix=None, enable=True, optional_attributes={description = "new user"})
+	return c.displayName
+	'''	pyad.from_dn("CN=Ryan Genuson,OU=point97,DC=ecotrust,DC=org")	
+	newuser=pyad.aduser.ADUser('aspeaks')
 	#date=newuser.get_password_last_set()
-	date="thing"	
-	return date
+	#return date
+'''
 
+pwgen():
+	return "Password!"
 
 print mkAD()
 
