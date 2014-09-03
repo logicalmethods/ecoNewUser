@@ -21,17 +21,25 @@ to do:
 """
 
 
+from pyad import *
+#from httplib2 import Http
+#from urllib import urlencode
 
-from httplib2 import Http
-from urllib import urlencode
+
+def mkAD():
+	newuser=pyad.aduser.ADUser('aspeaks')
+	date=newuser.get_password_last_set()
+	return date
 
 
-def mkAD()
+print mkAD()
 
-def mkBasecamp()
+#def mkBasecamp()
 
+"""
 def mkSocialcast()
 	httpCall = Http()
 	data = dict(name="Joe", comment="A test comment")
 	resp, content = h.request("http://bitworking.org/news/223/Meet-Ares", "POST", urlencode(data))
 	resp
+"""
