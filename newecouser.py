@@ -27,8 +27,9 @@ from pyad import *
 
 
 def mkAD():
-	newuser=pyad.aduser.ADUser('aspeaks')
-	date=newuser.get_password_last_set()
+	#newuser=pyad.aduser.ADUser('aspeaks')
+	#date=newuser.get_password_last_set()
+	date="thing"	
 	return date
 
 
