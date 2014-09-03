@@ -37,7 +37,7 @@ def mkAD(username):
 '''
 
 pwgen():
-	return "Password!"
+	return("Password!")
 
 print mkAD()
 
