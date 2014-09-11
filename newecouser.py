@@ -6,10 +6,11 @@ new user creation script for Ecotrust
 -------------------------------------
 
 does:
-* nothing (atm)
+*creates users in AD 
 
 to do:
-* create AD user
+* read CSV of user names and attributes
+* add ad user to appropriate groups
 * create social cast user
 * create mediawiki user
 * create resource space user
@@ -21,17 +22,27 @@ to do:
 """
 
 
-from pyad import *
+from pyad import *	#for interacting with AD
+import json			#for reading and writing json
+import urllib2		#for parsing URLs
 #from httplib2 import Http
-#from urllib import urlencode
 
+def readWorkFile(fileName): #opens the to-do file and returns a json object of the things we should be doing
+	f = open(fileName, "r")
+	work = json.load(f)
+	return(work)
 
 
 def mkAD(username):
 	ou = pyad.adcontainer.ADContainer.from_dn("OU=folder redirection,OU=employees,OU=ecotrust,DC=ecotrust,DC=org")
-	c = pyad.aduser.ADUser.create(name = username, container_object=ou, password=pwgen(), upn_suffix=None, enable=True, optional_attributes=dict(description = "new user"))
-	return c.displayName
+	c = pyad.aduser.ADUser.create(name = username, container_object=ou, password=pwgen(), upn_suffix=None, enable=False, optional_attributes=dict(description = "new user"))
+	addToGrp("everybody", username)
+	return(c.displayName)
 
+def addToGrp(groupName, userName):
+
+
+# returns a 10 character human readable password
 def pwgen():
 	return("Password!")
 
@@ -39,7 +50,7 @@ def pwgen():
 def mkBasecamp()
 
 
-def mkSocialcast():
+def mkSocialcast(userName):
 	httpCall = Http()
 	data = dict(name="Joe", comment="A test comment")
 	resp, content = h.request("http://bitworking.org/news/223/Meet-Ares", "POST", urlencode(data))
