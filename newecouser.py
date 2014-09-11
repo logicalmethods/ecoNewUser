@@ -25,6 +25,7 @@ to do:
 from pyad import *	#for interacting with AD
 import json			#for reading and writing json
 import urllib2		#for parsing URLs
+import argparse		#for reading the command line arguments
 #from httplib2 import Http
 
 def readWorkFile(fileName): #opens the to-do file and returns a json object of the things we should be doing
@@ -39,17 +40,17 @@ def mkAD(username):
 	addToGrp("everybody", username)
 	return(c.displayName)
 
-def addToGrp(groupName, userName):
+def addToGrp(groupName, userName):	#add a specified user to a specified AD group
+	return(none)
 
 
-# returns a 10 character human readable password
-def pwgen():
+def pwgen():	# returns a 10 character human readable password
 	return("Password!")
 
+def mkBasecamp():	#make basecamp user
+	return(none)
+
 """
-def mkBasecamp()
-
-
 def mkSocialcast(userName):
 	httpCall = Http()
 	data = dict(name="Joe", comment="A test comment")
@@ -57,4 +58,9 @@ def mkSocialcast(userName):
 	resp
 """
 
-print mkAD("aaron")
+###########################
+
+parser = argparse.ArgumentParser()
+parser.add_argument("config", help="specify the name of the json formated config file containing new user info")
+args = parser.parse_args()
+print mkAD(args.config)
