@@ -10,7 +10,8 @@ does:
 
 to do:
 * read CSV of user names and attributes
-* add ad user to appropriate groups
+* add ad user to appropriate groups: default: domain users, everybody, development_ro
+* set appropriate attributes to AD user: manager, home folder: u: \\daryl\users\jdoe, 
 * create social cast user
 * create mediawiki user
 * create resource space user
@@ -23,7 +24,7 @@ to do:
 
 
 from pyad import *	#for interacting with AD
-import json			#for reading and writing json
+import json		#for reading and writing json
 import urllib2		#for parsing URLs
 import argparse		#for reading the command line arguments
 #from httplib2 import Http
