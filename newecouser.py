@@ -51,7 +51,8 @@ def readWorkFile(fileName): #opens the to-do file and returns a json object of t
 
 def mkAD(userData):
 	ou = pyad.adcontainer.ADContainer.from_dn("OU=folder redirection,OU=employees,OU=ecotrust,DC=ecotrust,DC=org")
-	c = pyad.aduser.ADUser.create(name = userData["userName"], container_object=ou, password=pwgen(), upn_suffix=None, enable=False, optional_attributes=dict(description = "new user"))
+	c = pyad.aduser.ADUser.create(name = userData["userName"], container_object=ou, password=pwgen())
+	#c = pyad.aduser.ADUser.create(name = userData["userName"], container_object=ou, password=pwgen(), upn_suffix=None, enable=False, optional_attributes=dict(description = "new user"))
 	#addToGrp("everybody", userData["userName"])
 	return(c.displayName)
 
@@ -80,4 +81,4 @@ parser = argparse.ArgumentParser()
 parser.add_argument("config", help="specify the name of the json formated config file containing new user info")
 args = parser.parse_args()
 userData = readWorkFile(args.config)
-print mkAD(userData)
+mkAD(userData)
