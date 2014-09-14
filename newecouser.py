@@ -61,7 +61,7 @@ def mkAD(userData):
 
 
 def addToGrp(groupName, fullName):	#add a specified user to a specified AD group
-	uesrObj = aduser.ADUser.from_dn("CN={name},OU=employees,OU=ecotrust,DC=ecotrust,DC=org".format(name=fullName))
+	userObj = aduser.ADUser.from_dn("CN={name},OU=employees,OU=ecotrust,DC=ecotrust,DC=org".format(name=fullName))
 	groupObj = adgroup.ADGroup.from_dn("CN={group},OU=Lists,DC=ecotrust,DC=org".format(group=groupName))
 	groupObj.add_members(userObj)
 	return(none)
@@ -83,7 +83,7 @@ def mkSocialcast(userName):
 def mkGoogle(userName)
 	return(None)
 
-def mkO365(uesrName)
+def mkO365(userName)
 	return(None)
 """
 
