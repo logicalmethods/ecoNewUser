@@ -52,20 +52,21 @@ def readWorkFile(fileName): #opens the to-do file and returns a json object of t
 def mkAD(userData):
 	ou = pyad.adcontainer.ADContainer.from_dn("OU=folder redirection,OU=employees,OU=ecotrust,DC=ecotrust,DC=org")
 	c = pyad.aduser.ADUser.create(name = userData["userName"], container_object=ou, password=pwgen(), upn_suffix=None, enable=False, optional_attributes=dict(description = "new user"))
-	addToGrp("everybody", userData["userName"])
+	#addToGrp("everybody", userData["userName"])
 	return(c.displayName)
 
+"""
 def addToGrp(groupName, userName):	#add a specified user to a specified AD group
 	return(none)
-
+"""
 
 def pwgen():	# returns a 10 character human readable password
 	return("Password!")
-
+"""
 def mkBasecamp():	#make basecamp user
 	return(none)
 
-"""
+
 def mkSocialcast(userName):
 	httpCall = Http()
 	data = dict(name="Joe", comment="A test comment")
