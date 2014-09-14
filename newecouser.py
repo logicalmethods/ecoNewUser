@@ -20,6 +20,20 @@ to do:
 * assign user to computer in GLPI
 * option : create mailbox?
 * option : create linux dev boxen user?
+
+config file format:
+{
+"fullName":"JOHN DOE",
+"userName":"jdoe",
+"groups":["mis","ncc"],
+"socialcastP":true,
+"basecampP":true,
+"company":"Ecotrust",
+"temporary":true,
+"manager":"aspeaks"
+}
+
+
 """
 
 
@@ -35,10 +49,10 @@ def readWorkFile(fileName): #opens the to-do file and returns a json object of t
 	return(work)
 
 
-def mkAD(username):
+def mkAD(userData):
 	ou = pyad.adcontainer.ADContainer.from_dn("OU=folder redirection,OU=employees,OU=ecotrust,DC=ecotrust,DC=org")
-	c = pyad.aduser.ADUser.create(name = username, container_object=ou, password=pwgen(), upn_suffix=None, enable=False, optional_attributes=dict(description = "new user"))
-	addToGrp("everybody", username)
+	c = pyad.aduser.ADUser.create(name = userData["userName"], container_object=ou, password=pwgen(), upn_suffix=None, enable=False, optional_attributes=dict(description = "new user"))
+	addToGrp("everybody", userData["userName"])
 	return(c.displayName)
 
 def addToGrp(groupName, userName):	#add a specified user to a specified AD group
@@ -64,4 +78,5 @@ def mkSocialcast(userName):
 parser = argparse.ArgumentParser()
 parser.add_argument("config", help="specify the name of the json formated config file containing new user info")
 args = parser.parse_args()
-print mkAD(args.config)
+userData = readWorkFile(args.config)
+print mkAD(userData)
