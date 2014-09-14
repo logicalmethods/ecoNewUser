@@ -16,6 +16,8 @@ to do:
 * create mediawiki user
 * create resource space user
 * create basecamp user?
+* create google apps user
+* create o365 user
 * create user in GLPI
 * assign user to computer in GLPI
 * option : create mailbox?
@@ -53,7 +55,7 @@ def readWorkFile(fileName): #opens the to-do file and returns a json object of t
 
 def mkAD(userData):
 	ou = pyad.adcontainer.ADContainer.from_dn("OU=employees,OU=ecotrust,DC=ecotrust,DC=org")
-	c = pyad.aduser.ADUser.create(name = userData["userName"], container_object=ou, password=pwgen(), upn_suffix=None, enable=False, optional_attributes=dict(description = userData["description"], givenName = userData["firstName"], sn=userData["lastName"],displayName=userData["firstName"]+" "+userData["lastName"]))
+	c = pyad.aduser.ADUser.create(name = userData["userName"], container_object=ou, password=pwgen(), upn_suffix=None, enable=False, optional_attributes=dict(description = userData["description"], givenName = userData["firstName"], sn=userData["lastName"],displayName=userData["firstName"]+" "+userData["lastName"],cn=userData["firstName"]+" "+userData["lastName"]))
 	addToGrp("everybody", userData["firstName"]+" "+userData["lastName"])
 	return(c.displayName)
 
@@ -77,6 +79,12 @@ def mkSocialcast(userName):
 	data = dict(name="Joe", comment="A test comment")
 	resp, content = h.request("http://bitworking.org/news/223/Meet-Ares", "POST", urlencode(data))
 	resp
+
+def mkGoogle(userName)
+	return(None)
+
+def mkO365(uesrName)
+	return(None)
 """
 
 ###########################
