@@ -51,15 +51,16 @@ def readWorkFile(fileName): #opens the to-do file and returns a json object of t
 
 
 def mkAD(userData):
-	ou = pyad.adcontainer.ADContainer.from_dn("OU=folder redirection,OU=employees,OU=ecotrust,DC=ecotrust,DC=org")
+	ou = pyad.adcontainer.ADContainer.from_dn("OU=employees,OU=ecotrust,DC=ecotrust,DC=org")
 	c = pyad.aduser.ADUser.create(name = userData["userName"], container_object=ou, password=pwgen(), upn_suffix=None, enable=False, optional_attributes=dict(description = userData["description"]))
-	addToGrp("everybody", userData["userName"])
+	addToGrp("everybody", userData["fullName"])
 	return(c.displayName)
 
 
-def addToGrp(groupName, userName):	#add a specified user to a specified AD group
-	group = pyad.adgroup.ADGroup.from_dn(groupName)
-	group.add_members(userName)
+def addToGrp(groupName, fullName):	#add a specified user to a specified AD group
+	uesrObj = pyad.aduser.ADUser.from_dn("CN={name},OU=employees,OU=ecotrust,DC=ecotrust,DC=org".format(name=fullName))
+	groupObj = pyad.adgroup.ADGroup.from_dn("CN={group},OU=Lists,DC=ecotrust,DC=org".format(group=groupName))
+	groupObj.add_members(userObj)
 	return(none)
 
 
