@@ -23,7 +23,7 @@ to do:
 
 config file format:
 {
-"fullName":"JOHN DOE",
+"fullName":"Jon Doe",
 "userName":"jdoe",
 "groups":["mis","ncc"],
 "socialcastP":true,
@@ -52,7 +52,7 @@ def readWorkFile(fileName): #opens the to-do file and returns a json object of t
 
 def mkAD(userData):
 	ou = pyad.adcontainer.ADContainer.from_dn("OU=employees,OU=ecotrust,DC=ecotrust,DC=org")
-	c = pyad.aduser.ADUser.create(name = userData["userName"], container_object=ou, password=pwgen(), upn_suffix=None, enable=False, optional_attributes=dict(description = userData["description"]))
+	c = pyad.aduser.ADUser.create(name = userData["userName"], container_object=ou, password=pwgen(), upn_suffix=None, enable=False, optional_attributes=dict(description = userData["description"], name = userData["fullName"]))
 	addToGrp("everybody", userData["fullName"])
 	return(c.displayName)
 
