@@ -58,7 +58,7 @@ def mkAD(userData):
 
 
 def addToGrp(groupName, userName):	#add a specified user to a specified AD group
-	group = ADGroup.from_dn(groupName)
+	group = pyad.adgroup.ADGroup.from_dn(groupName)
 	group.add_members(userName)
 	return(none)
 
