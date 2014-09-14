@@ -30,7 +30,7 @@ config file format:
 "basecampP":true,
 "company":"Ecotrust",
 "temporary":true,
-"manager":"aspeaks"
+"manager":"aspeaks",
 "description":"just this guy, you know?"
 }
 
@@ -52,15 +52,16 @@ def readWorkFile(fileName): #opens the to-do file and returns a json object of t
 
 def mkAD(userData):
 	ou = pyad.adcontainer.ADContainer.from_dn("OU=folder redirection,OU=employees,OU=ecotrust,DC=ecotrust,DC=org")
-	#c = pyad.aduser.ADUser.create(name = userData["userName"], container_object=ou, password=pwgen())
 	c = pyad.aduser.ADUser.create(name = userData["userName"], container_object=ou, password=pwgen(), upn_suffix=None, enable=False, optional_attributes=dict(description = userData["description"]))
-	#addToGrp("everybody", userData["userName"])
+	addToGrp("everybody", userData["userName"])
 	return(c.displayName)
 
-"""
+
 def addToGrp(groupName, userName):	#add a specified user to a specified AD group
+	group = ADGroup.from_dn(groupName)
+	group.add_members(userName)
 	return(none)
-"""
+
 
 def pwgen():	# returns a 10 character human readable password
 	return("Password!")
