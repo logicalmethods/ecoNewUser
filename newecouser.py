@@ -12,7 +12,8 @@ def readWorkFile(fileName): #opens the to-do file and returns a json object of t
 
 def mkAD(userData): #create an ecotrust standard AD user
 	ou = pyad.adcontainer.ADContainer.from_dn("OU=employees,OU=ecotrust,DC=ecotrust,DC=org")
-	c = pyad.aduser.ADUser.create(name = userData["firstName"]+" "+userData["lastName"], container_object=ou, password=pwgen(), upn_suffix=None, enable=True, optional_attributes=dict(description = userData["description"], givenName = userData["firstName"], sn=userData["lastName"],displayName=userData["firstName"]+" "+userData["lastName"],sAMAccountName=userData["userName"],userPrincipalName=userData["userName"]+"@ecotrust.org", homeDirectory="\\\\daryl\\users\\"+userData["userName"],homeDrive="u:"))
+	managerObj = aduser.ADUser.from_cn(userData["manager"])
+	c = pyad.aduser.ADUser.create(name = userData["firstName"]+" "+userData["lastName"], container_object=ou, password=pwgen(), upn_suffix=None, enable=True, optional_attributes=dict(description = userData["description"], givenName = userData["firstName"], sn=userData["lastName"],displayName=userData["firstName"]+" "+userData["lastName"],sAMAccountName=userData["userName"],userPrincipalName=userData["userName"]+"@ecotrust.org", homeDirectory="\\\\daryl\\users\\"+userData["userName"],homeDrive="u:", manager=managerObj))
 	for i in userData["groups"]:
 		addToGrp(i,userData["firstName"]+" "+userData["lastName"])
 	return(c.displayName)

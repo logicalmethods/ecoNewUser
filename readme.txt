@@ -9,9 +9,10 @@ does:
 *creates users in AD 
 *adds them to everybody and development_ro and terra access
 *adds user to home folder
+*adds ad user to groups from config file
+
 
 to do:
-* add ad user to optional groups from config file
 * set appropriate attributes to AD user: manager,  
 * create social cast user
 * create mediawiki user
