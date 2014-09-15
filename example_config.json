@@ -2,11 +2,13 @@
 "firstName":"Jon",
 "lastName":"Doe",
 "userName":"jdoe",
+"title":"minister of magic",
+"department":"forestry",
 "groups":["everybody","development_ro","terra access"],
 "socialcastP":true,
 "basecampP":true,
 "company":"Ecotrust",
 "temporary":true,
-"manager":"alexander speaks",
+"manager":"sam beebe",
 "description":"just this guy, you know?"
 }
