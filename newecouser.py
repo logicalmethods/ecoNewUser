@@ -7,6 +7,7 @@ new user creation script for Ecotrust
 
 does:
 *creates users in AD 
+*adds them to everybody and development_ro and terra access
 
 to do:
 * read CSV of user names and attributes
@@ -55,16 +56,19 @@ def readWorkFile(fileName): #opens the to-do file and returns a json object of t
 
 def mkAD(userData):
 	ou = pyad.adcontainer.ADContainer.from_dn("OU=employees,OU=ecotrust,DC=ecotrust,DC=org")
-	c = pyad.aduser.ADUser.create(name = userData["firstName"]+" "+userData["lastName"], container_object=ou, password=pwgen(), upn_suffix=None, enable=False, optional_attributes=dict(description = userData["description"], givenName = userData["firstName"], sn=userData["lastName"],displayName=userData["firstName"]+" "+userData["lastName"],sAMAccountName=userData["userName"],userPrincipalName=userData["userName"]+"@ecotrust.org"))
+	c = pyad.aduser.ADUser.create(name = userData["firstName"]+" "+userData["lastName"], container_object=ou, password=pwgen(), upn_suffix=None, enable=True, optional_attributes=dict(description = userData["description"], givenName = userData["firstName"], sn=userData["lastName"],displayName=userData["firstName"]+" "+userData["lastName"],sAMAccountName=userData["userName"],userPrincipalName=userData["userName"]+"@ecotrust.org"))
 	addToGrp("everybody", userData["firstName"]+" "+userData["lastName"])
+	addToGrp("development_ro", userData["firstName"]+" "+userData["lastName"])
+	addToGrp("development_ro", userData["firstName"]+" "+userData["lastName"])
+	addToGrp("terra access", userData["firstName"]+" "+userData["lastName"])
 	return(c.displayName)
 
 
 def addToGrp(groupName, fullName):	#add a specified user to a specified AD group
 	userObj = aduser.ADUser.from_dn("CN={name},OU=employees,OU=ecotrust,DC=ecotrust,DC=org".format(name=fullName))
-	groupObj = adgroup.ADGroup.from_dn("CN={group},OU=Lists,DC=ecotrust,DC=org".format(group=groupName))
+	groupObj = adgroup.ADGroup.from_cn(groupName)
 	groupObj.add_members(userObj)
-	return(none)
+	return(None)
 
 
 def pwgen():	# returns a 10 character human readable password
