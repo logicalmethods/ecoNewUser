@@ -5,12 +5,12 @@ new user creation script for Ecotrust
 -------------------------------------
 
 does:
+*reads input from a JSON formatted text file
 *creates users in AD 
 *adds them to everybody and development_ro and terra access
 *adds user to home folder
 
 to do:
-* read CSV of user names and attributes
 * add ad user to optional groups from config file
 * set appropriate attributes to AD user: manager,  
 * create social cast user
