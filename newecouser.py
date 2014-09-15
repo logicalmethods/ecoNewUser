@@ -17,7 +17,7 @@ def mkAD(userData): #create an ecotrust standard AD user
 	#addToGrp("development_ro", userData["firstName"]+" "+userData["lastName"])
 	#addToGrp("development_ro", userData["firstName"]+" "+userData["lastName"])
 	#addToGrp("terra access", userData["firstName"]+" "+userData["lastName"])
-	for i in userData[groups]
+	for i in userData[groups]:
 		addToGrp(i,userData["firstName"]+" "+userData["lastName"])
 	return(c.displayName)
 
