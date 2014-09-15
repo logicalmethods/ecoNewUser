@@ -1,0 +1,12 @@
+{
+"firstName":"Jon",
+"lastName":"Doe",
+"userName":"jdoe",
+"groups":["mis","ncc"],
+"socialcastP":true,
+"basecampP":true,
+"company":"Ecotrust",
+"temporary":true,
+"manager":"aspeaks",
+"description":"just this guy, you know?"
+}

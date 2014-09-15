@@ -8,11 +8,12 @@ new user creation script for Ecotrust
 does:
 *creates users in AD 
 *adds them to everybody and development_ro and terra access
+*adds user to home folder
 
 to do:
 * read CSV of user names and attributes
-* add ad user to appropriate groups: default: domain users, everybody, development_ro
-* set appropriate attributes to AD user: manager, home folder: u: \\daryl\users\jdoe, 
+* add ad user to optional groups from config file
+* set appropriate attributes to AD user: manager,  
 * create social cast user
 * create mediawiki user
 * create resource space user
@@ -23,6 +24,7 @@ to do:
 * assign user to computer in GLPI
 * option : create mailbox?
 * option : create linux dev boxen user?
+* generate safe password and save it somewhere
 
 config file format:
 {
@@ -54,7 +56,7 @@ def readWorkFile(fileName): #opens the to-do file and returns a json object of t
 	return(work)
 
 
-def mkAD(userData):
+def mkAD(userData): #create an ecotrust standard AD user
 	ou = pyad.adcontainer.ADContainer.from_dn("OU=employees,OU=ecotrust,DC=ecotrust,DC=org")
 	c = pyad.aduser.ADUser.create(name = userData["firstName"]+" "+userData["lastName"], container_object=ou, password=pwgen(), upn_suffix=None, enable=True, optional_attributes=dict(description = userData["description"], givenName = userData["firstName"], sn=userData["lastName"],displayName=userData["firstName"]+" "+userData["lastName"],sAMAccountName=userData["userName"],userPrincipalName=userData["userName"]+"@ecotrust.org", homeDirectory="\\\\daryl\\users\\"+userData["userName"],homeDrive="u:"))
 	addToGrp("everybody", userData["firstName"]+" "+userData["lastName"])
@@ -73,6 +75,7 @@ def addToGrp(groupName, fullName):	#add a specified user to a specified AD group
 
 def pwgen():	# returns a 10 character human readable password
 	return("Password!")
+
 """
 def mkBasecamp():	#make basecamp user
 	return(none)
