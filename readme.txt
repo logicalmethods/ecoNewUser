@@ -25,6 +25,8 @@ to do:
 * option : create mailbox?
 * option : create linux dev boxen user?
 * generate safe password and save it somewhere
+* issue them an available license from o365
 
-
+bugs:
+* something about how we create the user is causing the default email address to be jane@ecotrust.org rather than jdoe@ecotrust.org
 
